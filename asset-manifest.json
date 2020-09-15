@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/static/js/main.7de64eb9.chunk.js",
-    "main.js.map": "/static/js/main.7de64eb9.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.015849b2.js",
-    "runtime-main.js.map": "/static/js/runtime-main.015849b2.js.map",
-    "static/js/2.526f4f97.chunk.js": "/static/js/2.526f4f97.chunk.js",
-    "static/js/2.526f4f97.chunk.js.map": "/static/js/2.526f4f97.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.eb6805e57b48edcb1711a722c96c2c03.js": "/precache-manifest.eb6805e57b48edcb1711a722c96c2c03.js",
-    "service-worker.js": "/service-worker.js",
-    "static/js/2.526f4f97.chunk.js.LICENSE.txt": "/static/js/2.526f4f97.chunk.js.LICENSE.txt"
+    "main.js": "/rest-countries-api/static/js/main.928dd573.chunk.js",
+    "main.js.map": "/rest-countries-api/static/js/main.928dd573.chunk.js.map",
+    "runtime-main.js": "/rest-countries-api/static/js/runtime-main.ecc88822.js",
+    "runtime-main.js.map": "/rest-countries-api/static/js/runtime-main.ecc88822.js.map",
+    "static/js/2.dfc45c3f.chunk.js": "/rest-countries-api/static/js/2.dfc45c3f.chunk.js",
+    "static/js/2.dfc45c3f.chunk.js.map": "/rest-countries-api/static/js/2.dfc45c3f.chunk.js.map",
+    "index.html": "/rest-countries-api/index.html",
+    "precache-manifest.0f292ad6420fa1f453a0d434a5f445dd.js": "/rest-countries-api/precache-manifest.0f292ad6420fa1f453a0d434a5f445dd.js",
+    "service-worker.js": "/rest-countries-api/service-worker.js",
+    "static/js/2.dfc45c3f.chunk.js.LICENSE.txt": "/rest-countries-api/static/js/2.dfc45c3f.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.015849b2.js",
-    "static/js/2.526f4f97.chunk.js",
-    "static/js/main.7de64eb9.chunk.js"
+    "static/js/runtime-main.ecc88822.js",
+    "static/js/2.dfc45c3f.chunk.js",
+    "static/js/main.928dd573.chunk.js"
   ]
 }
