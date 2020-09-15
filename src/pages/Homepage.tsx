@@ -26,7 +26,6 @@ const Homepage: FC = () => {
 	const [data, setData] = useState<any[]>([]);
 	const [filter, setFilter] = useState({ region: '', text: '' });
 	const [filteredData, setFilteredData] = useState<any[]>([]);
-
 	useEffect(() => {
 		const fetchData = async () => {
 			const response = await fetch(
@@ -47,7 +46,7 @@ const Homepage: FC = () => {
 				country?.name.toLowerCase().includes(text?.toLowerCase())
 			);
 		setFilteredData(newData);
-	}, [filter]);
+	}, [filter, data]);
 
 	const handleSearch = (text: string) => {
 		setFilter({ ...filter, text: text });
