@@ -1,47 +1,73 @@
 import React from 'react';
 import styled from 'styled-components';
+import { thousandSeparator } from '../utils';
+import Detail from './Detail';
 
 const Wrapper = styled.article`
-	width: 200px;
+	background: ${({ theme }) => theme.color.primary};
+	box-shadow: ${({ theme }) => theme.boxShadow};
+	border-radius: ${({ theme }) => theme.borderRadius};
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	overflow: hidden;
+	height: 100%;
+
+	&:hover img {
+		transform: scale(1.15);
+	}
+`;
+
+const ImageWrapper = styled.div`
+	width: 100%;
+	height: 200px;
+	overflow: hidden;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
 const Image = styled.img`
 	display: block;
 	width: 100%;
+	height: 100%;
+	border-top-left-radius: ${({ theme }) => theme.borderRadius};
+	border-top-right-radius: ${({ theme }) => theme.borderRadius};
+	object-fit: contain;
+	transition: transform 0.3s ease;
+`;
+
+const DetailOuterWrapper = styled.div`
+	padding: 1rem;
+	line-height: 1.7;
 `;
 
 const Title = styled.h3`
-	margin: 1rem 0;
+	margin-bottom: 1rem;
 `;
 
-const DetailWrapper = styled.div`
-	display: flex;
-`;
+interface Props {
+	payload: {
+		name: string;
+		capital: string;
+		region: string;
+		population: number;
+		flag: string;
+	};
+}
 
-const DetailTitle = styled.p`
-	font-weight: ${({ theme }) => theme.fontWeight.medium};
-	margin-right: 0.3rem;
-`;
+const Card = ({ payload }: Props) => {
+	const { name, capital, region, population, flag } = payload;
 
-const Detail = styled.p``;
-
-export const Card = () => {
 	return (
 		<Wrapper>
-			<Image />
-			<Title>Germany</Title>
-			<DetailWrapper>
-				<DetailTitle>Population:</DetailTitle>
-				<Detail>81 812 313</Detail>
-			</DetailWrapper>
-			<DetailWrapper>
-				<DetailTitle>Region:</DetailTitle>
-				<Detail>Europe</Detail>
-			</DetailWrapper>
-			<DetailWrapper>
-				<DetailTitle>Capital:</DetailTitle>
-				<Detail>Berlin</Detail>
-			</DetailWrapper>
+			<ImageWrapper>
+				<Image src={flag} />
+			</ImageWrapper>
+			<DetailOuterWrapper>
+				<Title>{name}</Title>
+				<Detail title="Population" body={thousandSeparator(population)} />
+				<Detail title="Region" body={region} />
+				<Detail title="Capital" body={capital} />
+			</DetailOuterWrapper>
 		</Wrapper>
 	);
 };

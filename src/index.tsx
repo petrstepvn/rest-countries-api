@@ -3,15 +3,9 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import GlobalStyle from './styles/GlobalStyle';
-import ThemeManager from './styles/ThemeManager';
-
 ReactDOM.render(
 	<React.StrictMode>
-		<ThemeManager>
-			<GlobalStyle />
-			<App />
-		</ThemeManager>
+		<App />
 	</React.StrictMode>,
 	document.getElementById('root')
 );
