@@ -94,7 +94,7 @@ const Homepage: FC = () => {
 					<Link
 						style={country.show ? { display: 'block' } : { display: 'none' }}
 						key={i}
-						to={`/country/${country.name}`}
+						to={`/rest-countries-api/country/${country.name}`}
 					>
 						<Card payload={country} />
 					</Link>

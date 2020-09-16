@@ -33,7 +33,7 @@ interface Props {
 const HeaderComponent = ({ switchTheme, isDark }: Props) => (
 	<Header>
 		<Container>
-			<Link to="/">
+			<Link to="/rest-countries-api/">
 				<Title>Where in the World?</Title>
 			</Link>
 			<Button

@@ -37,8 +37,11 @@ const App: FC = () => {
 				<Header switchTheme={switchTheme} isDark={isDark} />
 				<MainWrapper>
 					<Switch>
-						<Route path="/" exact component={Homepage} />
-						<Route path="/country/:country" component={Country} />
+						<Route path="/rest-countries-api/" exact component={Homepage} />
+						<Route
+							path="/rest-countries-api/country/:country"
+							component={Country}
+						/>
 					</Switch>
 				</MainWrapper>
 			</Router>

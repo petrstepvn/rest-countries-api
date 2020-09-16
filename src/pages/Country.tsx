@@ -142,7 +142,7 @@ const Country = () => {
 
 	return (
 		<>
-			<Link to="/">
+			<Link to="/rest-countries-api/">
 				<Button text="Back" icon={<MdKeyboardBackspace />} />
 			</Link>
 			<InnerWrapper>
@@ -180,7 +180,7 @@ const Country = () => {
 					<BordersWrapper>
 						<Detail title="Border countries" noMinWidth />
 						{borders?.map((border, i) => (
-							<Link key={i} to={`/country/${border}`}>
+							<Link key={i} to={`/rest-countries-api/country/${border}`}>
 								<Button text={border} />
 							</Link>
 						))}

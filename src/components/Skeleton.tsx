@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
 	background: ${({ theme }) => theme.color.skeleton};
-	border-top-left-radius: inherit;
+	border-radius: inherit;
 	transition: background ${({ theme }) => theme.transition};
 	position: absolute;
 	top: 0;
