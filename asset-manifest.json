@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/rest-countries-api/static/js/main.5704b336.chunk.js",
-    "main.js.map": "/rest-countries-api/static/js/main.5704b336.chunk.js.map",
+    "main.js": "/rest-countries-api/static/js/main.39c2b93b.chunk.js",
+    "main.js.map": "/rest-countries-api/static/js/main.39c2b93b.chunk.js.map",
     "runtime-main.js": "/rest-countries-api/static/js/runtime-main.ecc88822.js",
     "runtime-main.js.map": "/rest-countries-api/static/js/runtime-main.ecc88822.js.map",
     "static/js/2.91205c79.chunk.js": "/rest-countries-api/static/js/2.91205c79.chunk.js",
     "static/js/2.91205c79.chunk.js.map": "/rest-countries-api/static/js/2.91205c79.chunk.js.map",
     "index.html": "/rest-countries-api/index.html",
-    "precache-manifest.d2f21181109bf8707b6be360ceaaebb1.js": "/rest-countries-api/precache-manifest.d2f21181109bf8707b6be360ceaaebb1.js",
+    "precache-manifest.80df6914a715c8567386e72e6e1517e4.js": "/rest-countries-api/precache-manifest.80df6914a715c8567386e72e6e1517e4.js",
     "service-worker.js": "/rest-countries-api/service-worker.js",
     "static/js/2.91205c79.chunk.js.LICENSE.txt": "/rest-countries-api/static/js/2.91205c79.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.ecc88822.js",
     "static/js/2.91205c79.chunk.js",
-    "static/js/main.5704b336.chunk.js"
+    "static/js/main.39c2b93b.chunk.js"
   ]
 }
