@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { thousandSeparator } from '../utils';
 import Detail from './Detail';
+import Skeleton from './Skeleton';
 
 const Wrapper = styled.article`
 	background: ${({ theme }) => theme.color.primary};
 	box-shadow: ${({ theme }) => theme.boxShadow};
 	border-radius: ${({ theme }) => theme.borderRadius};
+	transition: background ${({ theme }) => theme.transition};
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -22,17 +24,19 @@ const ImageWrapper = styled.div`
 	width: 100%;
 	height: 200px;
 	overflow: hidden;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	position: relative;
+	border-top-left-radius: ${({ theme }) => theme.borderRadius};
+	border-top-right-radius: ${({ theme }) => theme.borderRadius};
 `;
 
-const Image = styled.img`
+const Image = styled.img<{ isLoading: boolean }>`
+	opacity: ${({ isLoading }) => (isLoading ? 0 : 1)};
 	display: block;
 	width: 100%;
 	height: 100%;
-	border-top-left-radius: ${({ theme }) => theme.borderRadius};
-	border-top-right-radius: ${({ theme }) => theme.borderRadius};
-	object-fit: contain;
-	transition: transform 0.3s ease;
+	object-fit: cover;
+	border-radius: inherit;
+	transition: transform 0.3s ease, opacity 0.3s;
 `;
 
 const DetailOuterWrapper = styled.div`
@@ -55,12 +59,19 @@ interface Props {
 }
 
 const Card = ({ payload }: Props) => {
+	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const { name, capital, region, population, flag } = payload;
 
 	return (
 		<Wrapper>
 			<ImageWrapper>
-				<Image src={flag} />
+				<Image
+					isLoading={isLoading}
+					src={flag}
+					alt={name}
+					onLoad={() => setIsLoading(false)}
+				/>
+				{isLoading && <Skeleton />}
 			</ImageWrapper>
 			<DetailOuterWrapper>
 				<Title>{name}</Title>

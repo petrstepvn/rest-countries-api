@@ -13,6 +13,7 @@ const TitleWrapper = styled.div`
 	box-shadow: ${({ theme }) => theme.boxShadow};
 	font-weight: ${({ theme }) => theme.fontWeight.medium};
 	border-radius: ${({ theme }) => theme.borderRadius};
+	transition: background ${({ theme }) => theme.transition};
 	width: 200px;
 	padding: 1rem 1.5rem;
 	cursor: pointer;
@@ -23,16 +24,18 @@ const TitleWrapper = styled.div`
 `;
 
 const ListWrapper = styled.ul`
+	background: ${({ theme }) => theme.color.primary};
+	box-shadow: ${({ theme }) => theme.boxShadow};
+	border-radius: ${({ theme }) => theme.borderRadius};
+	transition: background ${({ theme }) => theme.transition};
 	position: absolute;
 	top: 100%;
 	left: 0;
 	margin-top: 0.2rem;
 	list-style: none;
 	width: 200px;
-	background: ${({ theme }) => theme.color.primary};
-	box-shadow: ${({ theme }) => theme.boxShadow};
 	padding: 0.8rem 0;
-	border-radius: ${({ theme }) => theme.borderRadius};
+	z-index: 1;
 `;
 
 const ListItem = styled.li<{ selected: boolean }>`
@@ -40,8 +43,8 @@ const ListItem = styled.li<{ selected: boolean }>`
 	padding: 0.2rem 1.5rem;
 	cursor: pointer;
 
-	background: ${({ theme, selected }) =>
-		selected ? theme.color.selected : null};
+	background: ${({ theme, selected }) => selected && theme.color.selected};
+	transition: background ${({ theme }) => theme.transition};
 
 	:hover {
 		background: ${({ theme }) => theme.color.hover};
@@ -55,8 +58,8 @@ interface Props {
 }
 
 const Filter = ({ handleRegion }: Props) => {
-	const [currentRegion, setCurrentRegion] = useState('');
-	const [isOpen, setIsOpen] = useState(false);
+	const [currentRegion, setCurrentRegion] = useState<string>('');
+	const [isOpen, setIsOpen] = useState<boolean>(false);
 
 	const handleOpen = () => {
 		setIsOpen(!isOpen);

@@ -2,14 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledButton = styled.button<{ clear: boolean }>`
+	color: ${({ theme }) => theme.color.text};
+	background: ${({ theme }) => theme.color.primary};
+	box-shadow: ${({ theme, clear }) => !clear && theme.boxShadow};
+	border-radius: ${({ theme }) => theme.borderRadius};
+	transition: background ${({ theme }) => theme.transition},
+		color ${({ theme }) => theme.transition};
 	min-width: 120px;
 	padding: 0.5rem;
 	font-size: 1rem;
 	border: none;
-	color: ${({ theme }) => theme.color.text};
-	background: ${({ theme }) => theme.color.primary};
-	box-shadow: ${({ theme, clear }) => (clear ? null : theme.boxShadow)};
-	border-radius: ${({ theme }) => theme.borderRadius};
 	cursor: pointer;
 	display: flex;
 	justify-content: center;
@@ -34,13 +36,10 @@ interface Props {
 	clear?: boolean;
 }
 
-const Button = ({ text, icon, onClick, clear = false }: Props) => {
-	return (
-		<StyledButton onClick={onClick} clear={clear}>
-			{icon}
-			{text}
-		</StyledButton>
-	);
-};
-
+const Button = ({ text, icon, onClick, clear = false }: Props) => (
+	<StyledButton onClick={onClick} clear={clear}>
+		{icon}
+		{text}
+	</StyledButton>
+);
 export default Button;

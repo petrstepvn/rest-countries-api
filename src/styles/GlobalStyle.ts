@@ -11,6 +11,10 @@ const GlobalStyle = createGlobalStyle`
 		font-family: 'Nunito Sans', sans-serif;
 		background: ${({ theme }) => theme.color.background};
 		color: ${({ theme }) => theme.color.text};
+		transition: background ${({ theme }) => theme.transition}, color ${({
+	theme,
+}) => theme.transition};
+
 	}
 
 	a {

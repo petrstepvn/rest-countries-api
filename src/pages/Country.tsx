@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-
 import styled from 'styled-components';
-import Button from '../components/Button';
-import Detail from '../components/Detail';
+import { thousandSeparator } from '../utils';
 
 import { MdKeyboardBackspace } from 'react-icons/md';
-import { thousandSeparator } from '../utils';
+import Button from '../components/Button';
+import Detail from '../components/Detail';
+import Skeleton from '../components/Skeleton';
 
 const InnerWrapper = styled.section`
 	margin-top: ${({ theme }) => theme.padding.big};
@@ -22,12 +23,20 @@ const InnerWrapper = styled.section`
 	}
 `;
 
-const Image = styled.img`
-	/* max-width: 90%; */
-	height: 100%;
-	display: block;
+const ImageWrapper = styled.div<{ isLoading: boolean }>`
+	height: ${({ isLoading }) => isLoading && '400px'};
+	position: relative;
 	border-radius: ${({ theme }) => theme.borderRadius};
 	box-shadow: ${({ theme }) => theme.boxShadow};
+`;
+
+const Image = styled.img<{ isLoading: boolean }>`
+	display: block;
+	width: 100%;
+	height: 100%;
+	border-radius: inherit;
+	opacity: ${({ isLoading }) => (isLoading ? 0 : 1)};
+	transition: opacity ${({ theme }) => theme.transition};
 `;
 
 const Title = styled.h1`
@@ -46,6 +55,7 @@ const RightWrapper = styled.div`
 `;
 
 const DetailsWrapper = styled.div`
+	position: relative;
 	display: flex;
 	flex-wrap: wrap;
 	padding: ${({ theme }) => theme.padding.main} 0;
@@ -64,10 +74,6 @@ const BordersWrapper = styled.div`
 	}
 `;
 
-interface Props {
-	match: any;
-}
-
 interface CountryData {
 	name?: string;
 	nativeName?: string;
@@ -75,37 +81,51 @@ interface CountryData {
 	region?: string;
 	subregion?: string;
 	capital?: string;
-	topLevelDomain?: [];
-	currencies?: [];
-	languages?: [];
-	borders?: [];
+	topLevelDomain?: string[];
+	currencies?: [{ name: string }];
+	languages?: [{ name: string }];
+	borders?: string[];
 	flag?: string;
 }
 
-const Country = ({ match }: Props) => {
+const Country = () => {
 	const [countryData, setCountryData] = useState<CountryData>({});
-	const [borders, setBorders] = useState<[]>([]);
+	const [borders, setBorders] = useState<string[]>([]);
+	const [isLoading, setIsLoading] = useState<boolean>(true);
+	// TS error: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/41674
+	const { country }: any = useParams();
+
 	useEffect(() => {
+		setIsLoading(true);
+		const url = 'https://restcountries.eu/rest/v2';
+		const abortController = new AbortController();
+		const abortSignal = { signal: abortController.signal };
+
 		const fetchData = async () => {
-			const response = await fetch(
-				`https://restcountries.eu/rest/v2/name/${match.params.country}?fields=name;nativeName;population;region;subregion;capital;topLevelDomain;currencies;languages;borders;flag`
-			);
-			const json = await response.json();
-
-			if (json[0].borders.length) {
-				const response2 = await fetch(
-					`https://restcountries.eu/rest/v2/alpha?fields=name&codes=${json[0].borders.join(
-						';'
-					)}`
+			try {
+				const response = await fetch(
+					`${url}/name/${country}?fields=name;nativeName;population;region;subregion;capital;topLevelDomain;currencies;languages;borders;flag`,
+					abortSignal
 				);
-				const json2 = await response2.json();
-				setBorders(json2.map((item: { name: string }) => item.name));
-			}
+				const json = await response.json();
 
-			setCountryData(json[0]);
+				if (json[0].borders.length) {
+					const response2 = await fetch(
+						`${url}/alpha?fields=name&codes=${json[0].borders.join(';')}`,
+						abortSignal
+					);
+					const json2 = await response2.json();
+					setBorders(json2.map((item: { name: string }) => item.name));
+				}
+				setCountryData(json[0]);
+			} catch (error) {
+				console.log(error);
+			}
 		};
 		fetchData();
-	}, [match]);
+
+		return () => abortController.abort();
+	}, [country]);
 
 	const {
 		name,
@@ -126,7 +146,15 @@ const Country = ({ match }: Props) => {
 				<Button text="Back" icon={<MdKeyboardBackspace />} />
 			</Link>
 			<InnerWrapper>
-				<Image src={flag} />
+				<ImageWrapper isLoading={isLoading}>
+					<Image
+						isLoading={isLoading}
+						src={flag}
+						alt={name}
+						onLoad={() => setIsLoading(false)}
+					/>
+					{isLoading && <Skeleton />}
+				</ImageWrapper>
 				<RightWrapper>
 					<Title>{name}</Title>
 					<DetailsWrapper>

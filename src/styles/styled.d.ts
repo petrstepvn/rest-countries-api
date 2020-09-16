@@ -4,9 +4,9 @@ interface Color {
 	background: string;
 	primary: string;
 	text: string;
-	textSecondary: string;
 	hover: string;
 	selected: string;
+	skeleton: string;
 }
 
 interface FontWeight {
@@ -30,5 +30,6 @@ declare module 'styled-components' {
 		width: string;
 		borderRadius: string;
 		padding: Padding;
+		transition: string;
 	}
 }

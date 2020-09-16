@@ -7,6 +7,7 @@ import { WiDaySunny, WiMoonAltWaxingCrescent2 } from 'react-icons/wi';
 const Header = styled.header`
 	background: ${({ theme }) => theme.color.primary};
 	box-shadow: ${({ theme }) => theme.boxShadow};
+	transition: background ${({ theme }) => theme.transition};
 `;
 
 const Container = styled.div`
@@ -21,6 +22,7 @@ const Container = styled.div`
 
 const Title = styled.h2`
 	color: ${({ theme }) => theme.color.text};
+	transition: color ${({ theme }) => theme.transition};
 `;
 
 interface Props {
@@ -28,22 +30,20 @@ interface Props {
 	isDark: boolean;
 }
 
-const HeaderComponent = ({ switchTheme, isDark }: Props) => {
-	return (
-		<Header>
-			<Container>
-				<Link to="/">
-					<Title>Where in the World?</Title>
-				</Link>
-				<Button
-					clear
-					onClick={switchTheme}
-					icon={isDark ? <WiMoonAltWaxingCrescent2 /> : <WiDaySunny />}
-					text={isDark ? 'Dark Mode' : 'Light Mode'}
-				/>
-			</Container>
-		</Header>
-	);
-};
+const HeaderComponent = ({ switchTheme, isDark }: Props) => (
+	<Header>
+		<Container>
+			<Link to="/">
+				<Title>Where in the World?</Title>
+			</Link>
+			<Button
+				clear
+				onClick={switchTheme}
+				icon={isDark ? <WiMoonAltWaxingCrescent2 /> : <WiDaySunny />}
+				text={isDark ? 'Dark Mode' : 'Light Mode'}
+			/>
+		</Container>
+	</Header>
+);
 
 export default HeaderComponent;

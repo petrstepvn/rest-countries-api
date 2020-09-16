@@ -22,29 +22,56 @@ const CardsWrapper = styled.div`
 	gap: 3rem;
 `;
 
+interface Data {
+	name: string;
+	population: number;
+	region: string;
+	capital: string;
+	flag: string;
+}
+
+interface FilteredData extends Data {
+	show: boolean;
+}
+
+interface Filter {
+	region: string;
+	text: string;
+}
+
 const Homepage: FC = () => {
-	const [data, setData] = useState<any[]>([]);
-	const [filter, setFilter] = useState({ region: '', text: '' });
-	const [filteredData, setFilteredData] = useState<any[]>([]);
+	const [data, setData] = useState<Data[]>([]);
+	const [filter, setFilter] = useState<Filter>({ region: '', text: '' });
+	const [filteredData, setFilteredData] = useState<FilteredData[]>([]);
+
 	useEffect(() => {
+		const url =
+			'https://restcountries.eu/rest/v2/all?fields=name;population;region;capital;flag';
+		const abortController = new AbortController();
+		const abortSignal = { signal: abortController.signal };
+
 		const fetchData = async () => {
-			const response = await fetch(
-				'https://restcountries.eu/rest/v2/all?fields=name;population;region;capital;flag'
-			);
-			const json = await response.json();
-			setData(json);
-			setFilteredData(json);
+			try {
+				const response = await fetch(url, abortSignal);
+				const json = await response.json();
+				setData(json);
+			} catch (error) {
+				console.log(error);
+			}
 		};
 		fetchData();
+
+		return () => abortController.abort();
 	}, []);
 
 	useEffect(() => {
 		const { region, text } = filter;
-		const newData = data
-			.filter((country) => country?.region.includes(region))
-			.filter((country) =>
-				country?.name.toLowerCase().includes(text?.toLowerCase())
-			);
+		const newData = data.map((country) =>
+			country.region.includes(region) &&
+			country.name.toLowerCase().includes(text.toLowerCase())
+				? { ...country, show: true }
+				: { ...country, show: false }
+		);
 		setFilteredData(newData);
 	}, [filter, data]);
 
@@ -63,9 +90,13 @@ const Homepage: FC = () => {
 				<Filter handleRegion={handleRegion} />
 			</ControlsWrapper>
 			<CardsWrapper>
-				{filteredData.map((item, i) => (
-					<Link key={i} to={`/country/${item.name}`}>
-						<Card payload={item} />
+				{filteredData.map((country, i) => (
+					<Link
+						style={country.show ? { display: 'block' } : { display: 'none' }}
+						key={i}
+						to={`/country/${country.name}`}
+					>
+						<Card payload={country} />
 					</Link>
 				))}
 			</CardsWrapper>

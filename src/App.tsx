@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import { ThemeProvider } from 'styled-components';
-import { lightTheme, darkTheme } from './theme';
+import { lightTheme, darkTheme } from './styles/theme';
 import GlobalStyle from './styles/GlobalStyle';
 import Header from './components/Header';
 import Homepage from './pages/Homepage';
@@ -15,7 +15,7 @@ const MainWrapper = styled.main`
 `;
 
 const App: FC = () => {
-	const [isDark, setIsDark] = useState(true);
+	const [isDark, setIsDark] = useState<boolean>(false);
 
 	useEffect(() => {
 		const LS = localStorage.getItem('theme');

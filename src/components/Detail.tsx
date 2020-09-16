@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 const DetailWrapper = styled.div<{ noMinWidth: boolean }>`
+	min-width: ${({ noMinWidth }) => !noMinWidth && '200px'};
 	display: flex;
 	flex-wrap: wrap;
-	min-width: ${({ noMinWidth }) => (noMinWidth ? null : '200px')};
 	white-space: nowrap;
 	line-height: 1.7;
 `;
@@ -23,15 +23,11 @@ interface Props {
 	noMinWidth?: boolean;
 }
 
-const Detail = ({ title, body, noMinWidth = false }: Props) => {
-	return (
-		<DetailWrapper noMinWidth={noMinWidth}>
-			<DetailTitle>{title}:</DetailTitle>
-			<DetailBody>
-				{typeof body === 'object' ? body.join(', ') : body}
-			</DetailBody>
-		</DetailWrapper>
-	);
-};
+const Detail = ({ title, body, noMinWidth = false }: Props) => (
+	<DetailWrapper noMinWidth={noMinWidth}>
+		<DetailTitle>{title}:</DetailTitle>
+		<DetailBody>{typeof body === 'object' ? body.join(', ') : body}</DetailBody>
+	</DetailWrapper>
+);
 
 export default Detail;
